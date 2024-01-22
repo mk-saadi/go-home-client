@@ -4,7 +4,6 @@ import { Navigate, useLocation } from "react-router-dom";
 const PrivateRoute = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	const go_home = localStorage.getItem("go-home-ISTJ");
-	console.log("go_home: ", go_home);
 	const location = useLocation();
 
 	useEffect(() => {

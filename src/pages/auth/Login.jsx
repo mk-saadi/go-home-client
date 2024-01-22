@@ -1,6 +1,6 @@
 import { Fade } from "react-awesome-reveal";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import useToast from "../../utils/useToast";
 import Toast from "../../utils/Toast";
@@ -45,24 +45,26 @@ const Login = () => {
 			});
 	};
 
-	axios
-		.get("http://localhost:15000/users")
-		.then((response) => {
-			const userEmail = localStorage.getItem("email");
+	useEffect(() => {
+		axios
+			.get("http://localhost:15000/users")
+			.then((response) => {
+				const userEmail = localStorage.getItem("email");
 
-			const matchingUser = response.data.find((user) => user.email === userEmail);
+				const matchingUser = response.data.find((user) => user.email === userEmail);
 
-			if (matchingUser) {
-				localStorage.setItem("go-home-ISTJ", matchingUser._id);
+				if (matchingUser) {
+					localStorage.setItem("go-home-ISTJ", matchingUser._id);
 
-				navigate("/");
-			} else {
-				console.log("No matching user found.");
-			}
-		})
-		.catch((error) => {
-			console.error("Error fetching user data:", error);
-		});
+					navigate("/");
+				} else {
+					console.log("No matching user found.");
+				}
+			})
+			.catch((error) => {
+				console.error("Error fetching user data:", error);
+			});
+	}, [navigate]);
 
 	return (
 		<>
