@@ -37,8 +37,6 @@ const Login = () => {
 				localStorage.setItem("email", userEmail);
 				window.location.reload(true);
 
-				console.log("Login successful:", userEmail);
-
 				showToast("success", "Login Successful!");
 			})
 			.catch((error) => {
@@ -56,12 +54,8 @@ const Login = () => {
 
 			if (matchingUser) {
 				localStorage.setItem("go-home-ISTJ", matchingUser._id);
-				console.log("go-home-ISTJ", matchingUser._id);
 
 				navigate("/");
-				// localStorage.removeItem("email");
-
-				console.log("Data of matching user stored in localStorage:", matchingUser);
 			} else {
 				console.log("No matching user found.");
 			}

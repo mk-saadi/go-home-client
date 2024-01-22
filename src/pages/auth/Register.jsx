@@ -66,7 +66,7 @@ const Register = () => {
 					const formData = {
 						name,
 						userName,
-						imageUrl,
+						image: imageUrl,
 						email,
 						password,
 					};
@@ -79,8 +79,6 @@ const Register = () => {
 							localStorage.setItem("email", userEmail);
 							showToast("success", "Registration Successful!");
 
-							console.log("Registration successful:", userEmail);
-							// location.reload();
 							window.location.reload(true);
 						})
 						.catch((registrationError) => {

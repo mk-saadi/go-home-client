@@ -1,19 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import TopNav from "./homeComponent/TopNav";
 
 const Home = () => {
-	const navigate = useNavigate();
-
-	const handleLogout = (event) => {
-		event.preventDefault();
-		localStorage.removeItem("go-home-ISTJ");
-
-		window.location.reload(true);
-		navigate("/");
-	};
-
 	return (
 		<div>
-			<button onClick={handleLogout}>logout</button>
+			<TopNav />
+
+			<p>home</p>
 		</div>
 	);
 };

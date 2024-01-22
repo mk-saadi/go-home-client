@@ -8,6 +8,7 @@ import ApartmentDetail from "./pages/apartment/ApartmentDetail";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import PrivateRoute from "./utils/PrivateRoute";
+import Providers from "./utils/Providers";
 
 const router = createBrowserRouter([
 	{
@@ -40,6 +41,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<Providers>
+			<RouterProvider router={router} />
+		</Providers>
 	</React.StrictMode>
 );
