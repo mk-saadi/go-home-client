@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	font-family: "Quicksand", sans-serif;
+}
+
+/* button css */
+.submitButton {
+	width: 100%;
+	border-radius: 0;
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+	padding-top: 0.375rem;
+	padding-bottom: 0.375rem;
+	font-weight: 600;
+	line-height: 1.5;
+	color: #645104;
+	background: linear-gradient(to bottom, #f7cf31, #c59e00);
+	transition-duration: 0.2s;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+	text-align: center;
+}
+@media (max-width: 900px) {
+	.submitButton {
+		width: 100%;
+		border-radius: 0;
+		padding-left: 0.45rem;
+		padding-right: 0.45rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+		font-weight: 600;
+		line-height: 1.5;
+		color: #645104;
+		background: linear-gradient(to bottom, #f7cf31, #c59e00);
+		transition-duration: 0.2s;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+		cursor: pointer;
+		font-size: small;
+		text-align: center;
+	}
+}
+.submitButton:active {
+	transform: scale(0.95);
+}
+.submitButton:focus-visible {
+	outline: 2px solid #645104;
+	outline-offset: 2px;
+	outline-width: 2px;
+}
+
+/* go back button */
+.goBack {
+	width: 100%;
+	border-radius: 0;
+	padding-left: 0.75rem;
+	padding-right: 0.75rem;
+	padding-top: 0.375rem;
+	padding-bottom: 0.375rem;
+	font-weight: 600;
+	line-height: 1.5;
+	color: #374151;
+	text-align: center;
+	background: linear-gradient(to bottom, #d1d5db, #9ca3af);
+	transition-duration: 0.2s;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+}
+@media (max-width: 900px) {
+	.goBack {
+		width: 100%;
+		border-radius: 0;
+		padding-left: 0.45rem;
+		padding-right: 0.45rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
+		font-weight: 600;
+		line-height: 1.5;
+		color: #374151;
+		text-align: center;
+		background: linear-gradient(to bottom, #d1d5db, #9ca3af);
+		transition-duration: 0.2s;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+		cursor: pointer;
+		font-size: small;
+	}
+}
+.goBack:active {
+	transform: scale(0.95);
+}
+.goBack:focus-visible {
+	outline: 2px solid #645104;
+	outline-offset: 2px;
+	outline-width: 2px;
+}
