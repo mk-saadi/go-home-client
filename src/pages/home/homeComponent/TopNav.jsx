@@ -4,6 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import useToast from "../../../utils/useToast";
 import Toast from "../../../utils/Toast";
 import { MoveLeft, PlusSquare } from "lucide-react";
+import axios from "axios";
+import imageCompression from "browser-image-compression";
 
 const TopNav = () => {
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
@@ -13,7 +15,9 @@ const TopNav = () => {
 	const [userInput, setUserInput] = useState("+880");
 
 	const handleInputChange = (e) => {
-		const input = e.target.value;
+		let input = e.target.value;
+
+		input = input.replace(/[^0-9+]/g, "");
 
 		if (!input.startsWith("+880")) {
 			setUserInput("+880");
@@ -30,6 +34,82 @@ const TopNav = () => {
 		setIsOpen(true);
 	}
 
+	const imgbbApiKey = "5617d55658537c83fee4ef9a7cffb921";
+
+	// >> upload image to imgbb
+	const uploadToImgbb = async (imageFile) => {
+		showToast("loading", "Hosting image!");
+		let formData = new FormData();
+		formData.append("image", imageFile);
+		formData.append("key", imgbbApiKey);
+		try {
+			const response = await axios.post("https://api.imgbb.com/1/upload", formData);
+			return response.data.data.url;
+		} catch (error) {
+			showToast("error", "Image hosting failed!");
+		}
+	};
+
+	const handleApartment = async (event) => {
+		event.preventDefault();
+
+		const form = event.target;
+		const houseName = form.houseName.value;
+		const address = form.address.value;
+		const city = form.city.value;
+		const bedrooms = form.bedrooms.value;
+		const bathrooms = form.bathrooms.value;
+		const roomSize = form.roomSize.value;
+		const picture = form.picture.files[0];
+		const availability = form.availability.value;
+		const rent = form.rent.value;
+		const phone = form.phone.value;
+		const description = form.description.value;
+
+		const options = {
+			maxSizeMB: 0.1,
+			maxWidthOrHeight: 1280,
+			useWebWorker: true,
+		};
+
+		const compressedImage = await imageCompression(picture, options);
+		const imageUrl = await uploadToImgbb(compressedImage);
+
+		const roomData = {
+			houseName,
+			address,
+			city,
+			imageUrl,
+			bedrooms,
+			bathrooms,
+			roomSize,
+			picture,
+			availability,
+			rent,
+			phone,
+			description,
+			uploaderImage: user.image,
+			uploaderName: user.name,
+		};
+
+		try {
+			const res = await axios.post("http://localhost:15000/houses", roomData);
+			if (res.data.success) {
+				showToast("success", "Successfully added apartment!");
+
+				setTimeout(() => {
+					showToast("loading", "Closing Modal!");
+					setTimeout(() => {
+						setIsOpen(false);
+					}, 500);
+				}, 1000);
+			}
+		} catch (error) {
+			showToast("error", "Couldn't add! Please try again.");
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			{toastType && (
@@ -40,31 +120,33 @@ const TopNav = () => {
 				/>
 			)}
 
-			<div className="flex items-center justify-around mx-3 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl">
-				<div className="flex flex-row gap-x-2">
-					<div>
-						<img
-							src={user?.image}
-							alt=""
-							className="object-cover w-16 h-16 rounded-none"
-						/>
+			<div className="fixed w-full bottom-2">
+				<div className="flex items-center justify-between pt-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+					<div className="flex flex-row gap-x-2">
+						<div>
+							<img
+								src={user?.image}
+								alt=""
+								className="object-cover w-16 h-16 rounded-none"
+							/>
+						</div>
+						<div>
+							<p className="text-base font-medium text-gray-700">{user?.name}</p>
+							<p className="text-sm text-gray-500">{user?.userName}</p>
+							<p className="text-sm text-gray-500">{user?.email}</p>
+						</div>
 					</div>
-					<div>
-						<p className="text-base font-medium text-gray-700">{user?.name}</p>
-						<p className="text-sm text-gray-500">{user?.userName}</p>
-						<p className="text-sm text-gray-500">{user?.email}</p>
-					</div>
-				</div>
 
-				<div>
-					<button
-						type="button"
-						onClick={openModal}
-						className="flex items-center justify-start gap-x-2 submitButton"
-					>
-						<PlusSquare />
-						Add New House
-					</button>
+					<div>
+						<button
+							type="button"
+							onClick={openModal}
+							className="flex items-center justify-start gap-x-2 submitButton"
+						>
+							<PlusSquare />
+							Add New House
+						</button>
+					</div>
 				</div>
 			</div>
 
@@ -112,7 +194,10 @@ const TopNav = () => {
 
 									{/* modal body below */}
 									<div className="mt-2">
-										<form className="grid grid-cols-2 gap-x-4 gap-y-1.5 ">
+										<form
+											className="grid grid-cols-2 gap-x-4 gap-y-1.5 "
+											onSubmit={handleApartment}
+										>
 											{/* houseName */}
 											<div>
 												<label

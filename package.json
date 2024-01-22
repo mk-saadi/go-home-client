@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "axios": "^1.6.5",
+    "browser-image-compression": "^2.0.2",
     "localforage": "^1.10.0",
     "lucide-react": "^0.314.0",
     "match-sorter": "^6.3.3",

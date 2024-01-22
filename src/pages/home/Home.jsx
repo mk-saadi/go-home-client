@@ -2,7 +2,7 @@ import TopNav from "./homeComponent/TopNav";
 
 const Home = () => {
 	return (
-		<div>
+		<div className="h-[200vh]">
 			<TopNav />
 
 			<p>home</p>
