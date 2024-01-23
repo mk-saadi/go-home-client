@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState, Fragment, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Typography from "../../utils/Typography";
 import { BookMarked } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Toast from "../../utils/Toast";
-import { MoveLeft, PlusSquare } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 import useToast from "../../utils/useToast";
 import { DataContent } from "../../utils/Providers";
 
@@ -77,6 +77,12 @@ const ApartmentDetail = () => {
 		setIsOpen(true);
 	}
 
+	const navigate = useNavigate();
+
+	const handleBack = () => {
+		navigate(-1);
+	};
+
 	return (
 		<>
 			{toastType && (
@@ -100,21 +106,36 @@ const ApartmentDetail = () => {
 						))}
 				</div>
 				<div>
-					<p className="text-xl font-semibold text-gray-700">{room.houseName}</p>
-					<p className="text-sm font-medium text-gray-500">{room.city}</p>
-					<p className="text-sm font-medium text-gray-500">BDT: ৳{room.rent}</p>
-					<p className="text-sm font-medium text-gray-500">Available from: {room.availability}</p>
+					<div className="flex justify-between mb-8">
+						<div>
+							<p className="text-xl font-semibold text-gray-700">{room.houseName}</p>
+							<p className="text-sm font-medium text-gray-500">{room.city}</p>
+							<p className="text-sm font-medium text-gray-500">BDT: ৳{room.rent}</p>
+							<p className="text-sm font-medium text-gray-500">
+								Available from: {room.availability}
+							</p>
+						</div>
+
+						<div className="w-fit">
+							<button
+								className="flex items-center justify-start submitButton gap-x-2"
+								onClick={openModal}
+							>
+								{" "}
+								<BookMarked />
+								Book now
+							</button>
+						</div>
+					</div>
 
 					<Typography content={room.description} />
 
-					<div className="mt-4 w-fit">
+					<div className="mt-8 w-fit">
 						<button
-							className="flex items-center justify-start submitButton gap-x-2"
-							onClick={openModal}
+							className="goBack"
+							onClick={handleBack}
 						>
-							{" "}
-							<BookMarked />
-							Book now
+							<MoveLeft />
 						</button>
 					</div>
 				</div>

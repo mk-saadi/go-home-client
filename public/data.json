@@ -1,0 +1,44 @@
+[
+	{
+		"_id": "65af83b0203b53ca6732163e",
+		"houseName": "Ahsan Villa",
+		"address": "Gulshan 3",
+		"city": "Dhaka",
+		"imageUrls": [
+			"https://i.ibb.co/rZB0cBW/blob.jpg",
+			"https://i.ibb.co/9TNfgfy/blob.jpg",
+			"https://i.ibb.co/Y2LxMfj/blob.jpg"
+		],
+		"bedrooms": 3,
+		"bathrooms": 2,
+		"roomSize": 900,
+		"availability": "2024-02-01",
+		"rent": 75000,
+		"phone": "+8801835368886",
+		"description": "# Apartment.\n**Lorem ipsum** dolor sit amet consectetur adipisicing elit. In, quaerat excepturi? \nUnde enim *consequatur* at in sint a accusamus omnis rerum optio. Veniam, optio architecto rem deserunt. alias quasi aspernatur omnis corrupti enim illum officiis maiores libero delectus totam **error**.\nipsum blanditiis cumque maxime fugiat voluptates dicta laudantium culpa dolore.\n",
+		"uploaderImage": "https://i.ibb.co/stFMVCq/82173627-p0.jpg",
+		"uploaderName": "Modeus",
+		"createdAt": "2024-01-23T09:15:28.829Z"
+	},
+	{
+		"_id": "65af8b94203b53ca6732163f",
+		"houseName": "Ambarkhana Mansion",
+		"address": "Ambarkhana",
+		"city": "Sylhet",
+		"imageUrls": [
+			"https://i.ibb.co/1MYwD31/blob.webp",
+			"https://i.ibb.co/QcG7s2H/blob.jpg",
+			"https://i.ibb.co/WN97w54/blob.jpg"
+		],
+		"bedrooms": 3,
+		"bathrooms": 1,
+		"roomSize": 800,
+		"availability": "2024-06-01",
+		"rent": 25000,
+		"phone": "+8801835368886",
+		"description": " h1Apartment for Rent.\n\n**Lorem ipsum**, dolor sit amet consectetur adipisicing elit. Tempore ab fugiat quos facilis vel, voluptates natus atque? Explicabo accusantium ea praesentium quasi sunt sed minus dolor. official consectetur incidunt aperiam facere corrupti, delectus distinctio magnam culpa maiores.\n\ndolorum ratione iusto reprehenderit commodi aspernatur quod odio. Nihil officia animi at ipsum bquos eius vitae quas error blanditiis voluptates similique mollitia, fugiat et, laborum.\ndolorem, commodi minus ut nostrum sit ducimus amet expedita architecto porro. Dolores eveniet ratione quam amet veniam nam incidunt. Quas sint praesentium labore qui ex beatae, vero ad, quos alias ipsum delectus natus voluptas earum distinctio deleniti doloremque!\n\n*lorem ipsum bla bla haifewjas jovehnoa natus.*\n",
+		"uploaderImage": "https://i.ibb.co/stFMVCq/82173627-p0.jpg",
+		"uploaderName": "Modeus",
+		"createdAt": "2024-01-23T09:49:08.673Z"
+	}
+]
