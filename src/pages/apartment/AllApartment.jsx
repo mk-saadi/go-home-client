@@ -7,6 +7,7 @@ import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import useToast from "../../utils/useToast";
 import Toast from "../../utils/Toast";
+import app from "../../firebase/firebase.config";
 
 const AllApartment = () => {
 	const { houses, loading, user } = useContext(DataContent);
@@ -67,7 +68,10 @@ const AllApartment = () => {
 				setIsOpen(false);
 			}
 		} catch (error) {
-			showToast("error", "Couldn't book this apartment. Please try again!");
+			showToast(
+				"error",
+				error.response.data.error || "Couldn't book this apartment. Please try again!"
+			);
 		}
 	};
 
@@ -181,16 +185,18 @@ const AllApartment = () => {
 												City: <span className="text-gray-500">{us?.city}</span>
 											</p>
 
-											<div className="flex flex-col items-center justify-center md:gap-y-0 gap-y-3 md:flex-row w-fit h-fit gap-x-2">
-												<button
-													className="flex items-center justify-start submitButton gap-x-2"
-													onClick={() => openModal(us._id)}
-												>
-													{" "}
-													<BookMarked />
-													Book now
-												</button>
-											</div>
+											{user.role !== "RentOut" && (
+												<div className="flex flex-col items-center justify-center md:gap-y-0 gap-y-3 md:flex-row w-fit h-fit gap-x-2">
+													<button
+														className="flex items-center justify-start submitButton gap-x-2"
+														onClick={() => openModal(us._id)}
+													>
+														{" "}
+														<BookMarked />
+														Book now
+													</button>
+												</div>
+											)}
 										</div>
 									</div>
 								</li>

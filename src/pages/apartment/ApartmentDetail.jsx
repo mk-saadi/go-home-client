@@ -49,11 +49,13 @@ const ApartmentDetail = () => {
 		const form = event.target;
 		const name = user.name;
 		const email = user.email;
+		const bookerId = user?._id;
 		const phoneNumber = form.phoneNumber.value;
 
 		const bookedRoom = {
 			name,
 			email,
+			bookerId,
 			phoneNumber,
 			id,
 		};
@@ -65,7 +67,10 @@ const ApartmentDetail = () => {
 				setIsOpen(false);
 			}
 		} catch (error) {
-			showToast("error", "Couldn't book this apartment. Please try again!");
+			showToast(
+				"error",
+				error.response.data.error || "Couldn't book this apartment. Please try again!"
+			);
 		}
 	};
 

@@ -52,7 +52,6 @@ const Login = () => {
 				const userEmail = localStorage.getItem("email");
 
 				const matchingUser = response.data.find((user) => user.email === userEmail);
-				console.log("matchingUser: ", matchingUser);
 
 				if (matchingUser) {
 					localStorage.setItem("go-home-ISTJ", matchingUser._id);
@@ -61,7 +60,7 @@ const Login = () => {
 						navigate("/dashboard/bookedApartments");
 					}
 					if (matchingUser.role === "RentOut") {
-						navigate("/dashboard");
+						navigate("/dashboard/houseList");
 					}
 				} else {
 					console.log("No matching user found.");

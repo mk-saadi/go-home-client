@@ -24,17 +24,12 @@ const Navbar = () => {
 			</div>
 			<div className="flex-grow">
 				<div className="flex items-center justify-center">
-					{/* <ul className="flex space-x-4 font-medium text-gray-700 activeLinks">
-						<NavLink to="/">Profile</NavLink>
-						<NavLink to="/allApartment">Apartments</NavLink>
-						<NavLink to="/bookedApartments">Booked</NavLink>
-					</ul> */}
 					<ul className="flex space-x-4 font-medium text-gray-700 activeLinks">
-						{user?.role !== "Renter" && <NavLink to="/dashboard">Profile</NavLink>}
-						<NavLink to="/dashboard/allApartment">Apartments</NavLink>
+						{user?.role !== "Renter" && <NavLink to="/dashboard/houseList">Dashboard</NavLink>}
 						{user?.role !== "RentOut" && (
 							<NavLink to="/dashboard/bookedApartments">Booked</NavLink>
 						)}
+						<NavLink to="/dashboard/allApartment">Apartments</NavLink>
 					</ul>
 				</div>
 			</div>

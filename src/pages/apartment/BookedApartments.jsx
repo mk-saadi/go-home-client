@@ -9,7 +9,7 @@ import Toast from "../../utils/Toast";
 import { Dialog, Transition } from "@headlessui/react";
 
 const BookedApartments = () => {
-	const { loading, booked } = useContext(DataContent);
+	const { loading, booked, user } = useContext(DataContent);
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
 
 	const [userIdToDelete, setUserIdToDelete] = useState(null);
@@ -22,19 +22,34 @@ const BookedApartments = () => {
 		setIsOpen(true);
 	}
 
+	// const handleDelete = async (id) => {
+	// 	showToast("loading", "Please wait!");
+
+	// 	try {
+	// 		const res = await axios.delete(`http://localhost:15000/booked/${id}`);
+	// 		if (res.data.deletedCount > 0) {
+	// 			setIsOpen(false);
+	// 			showToast("success", "successfully deleted apartment!");
+	// 		}
+	// 	} catch (error) {
+	// 		console.log("error: ", error);
+	// 		showToast("error", "Couldn't delete apartment, please try again!");
+	// 	}
+	// };
+
 	const handleDelete = async (id) => {
+		console.log("Deleting apartment with id:", id);
 		showToast("loading", "Please wait!");
 
 		try {
 			const res = await axios.delete(`http://localhost:15000/booked/${id}`);
+			console.log("Delete response:", res.data); // Log the response to see if there are any clues
 			if (res.data.deletedCount > 0) {
 				setIsOpen(false);
-				showToast("success", "successfully deleted apartment!");
-
-				// setHouses((past) => past.filter((ha) => ha._id !== id));
+				showToast("success", "Successfully deleted apartment!");
 			}
 		} catch (error) {
-			setIsOpen(false);
+			console.log("Error deleting apartment:", error);
 			showToast("error", "Couldn't delete apartment, please try again!");
 		}
 	};
@@ -112,6 +127,25 @@ const BookedApartments = () => {
 						))}
 					</Fade>
 				)}
+			</div>
+
+			<div className="fixed bottom-0 w-full bg-white">
+				<div className="flex items-center justify-between py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+					<div className="flex flex-row gap-x-2">
+						<div>
+							<img
+								src={user?.image}
+								alt=""
+								className="object-cover w-16 h-16 rounded-none"
+							/>
+						</div>
+						<div>
+							<p className="text-base font-medium text-gray-700">{user?.name}</p>
+							<p className="text-sm text-gray-500">{user?.userName}</p>
+							<p className="text-sm text-gray-500">{user?.email}</p>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			{/* modal */}

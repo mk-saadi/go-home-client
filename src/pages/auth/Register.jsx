@@ -3,11 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Toast from "../../utils/Toast";
 import useToast from "../../utils/useToast";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Listbox, RadioGroup, Transition, Combobox } from "@headlessui/react";
+import { RadioGroup } from "@headlessui/react";
 
-const role = [{ name: "Renter" }, { name: "RentOut" }];
+const role = [
+	{ name: "Renter", obj: "want to rent apartment" },
+	{ name: "RentOut", obj: "want to put apartment for rent" },
+];
 
 const Register = () => {
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
@@ -103,27 +106,33 @@ const Register = () => {
 			});
 	};
 
-	axios
-		.get("http://localhost:15000/users")
-		.then((response) => {
-			const userEmail = localStorage.getItem("email");
+	useEffect(() => {
+		axios
+			.get("http://localhost:15000/users")
+			.then((response) => {
+				const userEmail = localStorage.getItem("email");
 
-			const matchingUser = response.data.find((user) => user.email === userEmail);
+				const matchingUser = response.data.find((user) => user.email === userEmail);
 
-			if (matchingUser) {
-				localStorage.setItem("go-home-ISTJ", matchingUser._id);
+				if (matchingUser) {
+					localStorage.setItem("go-home-ISTJ", matchingUser._id);
 
-				navigate("/");
-				// localStorage.removeItem("email");
+					if (matchingUser.role === "Renter") {
+						navigate("/dashboard/bookedApartments");
+					}
+					if (matchingUser.role === "RentOut") {
+						navigate("/dashboard/houseList");
+					}
 
-				console.log("Data of matching user stored in localStorage:", matchingUser);
-			} else {
-				console.log("No matching user found.");
-			}
-		})
-		.catch((error) => {
-			console.error("Error fetching user data:", error);
-		});
+					console.log("Data of matching user stored in localStorage:", matchingUser);
+				} else {
+					console.log("No matching user found.");
+				}
+			})
+			.catch((error) => {
+				console.error("Error fetching user data:", error);
+			});
+	}, [navigate]);
 
 	return (
 		<>
@@ -242,6 +251,7 @@ const Register = () => {
 																				? "text-[#645104] font-semibold"
 																				: "text-gray-700 font-semibold"
 																		}`}
+																		title={plan.obj}
 																	>
 																		{plan.name}
 																	</RadioGroup.Label>
@@ -318,7 +328,7 @@ const Register = () => {
 					<p className="mt-10 text-base text-center text-gray-500">
 						Already a member?{" "}
 						<Link
-							to="/login"
+							to="/"
 							className="font-semibold leading-6 text-[#c59e00] hover:underline"
 						>
 							Sign in here.
