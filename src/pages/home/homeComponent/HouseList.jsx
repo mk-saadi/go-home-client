@@ -1,16 +1,20 @@
-import { Eraser, MoveLeft } from "lucide-react";
-import { useState, Fragment, useEffect } from "react";
+import { Eraser, MoveLeft, Pencil } from "lucide-react";
+import { useState, Fragment, useEffect, useContext } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import useToast from "../../../utils/useToast";
 import Toast from "../../../utils/Toast";
+import { DataContent } from "../../../utils/Providers";
 
 /* eslint-disable react/prop-types */
 const HouseList = () => {
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
 	const [houses, setHouses] = useState([]);
+	const { user } = useContext(DataContent);
+
+	const userName = user?.userName;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -18,14 +22,16 @@ const HouseList = () => {
 				const res = await axios.get("http://localhost:15000/houses");
 				if (res.status === 200) {
 					const data = res.data;
-					setHouses(data);
+					const filterHouse = data.filter((po) => po.uploaderUserName === userName);
+
+					setHouses(filterHouse);
 				}
 			} catch (error) {
-				console.log();
+				console.log(error.message);
 			}
 		};
 		fetchData();
-	}, []);
+	}, [userName]);
 
 	const [userIdToDelete, setUserIdToDelete] = useState(null);
 	let [isOpen, setIsOpen] = useState(false);
@@ -100,7 +106,7 @@ const HouseList = () => {
 								</p>
 							</div>
 
-							<div className="w-fit">
+							<div className="flex flex-col items-center justify-center md:gap-y-0 gap-y-3 md:flex-row w-fit h-fit gap-x-2">
 								<button
 									className="flex items-center justify-start logOutButton gap-x-2"
 									onClick={() => openModal(ha._id)}
@@ -109,6 +115,14 @@ const HouseList = () => {
 									<Eraser />
 									Delete?
 								</button>
+								<Link
+									className="flex items-center justify-start submitButton gap-x-2"
+									to={`/edit/${ha._id}`}
+								>
+									{" "}
+									<Pencil />
+									Edit?
+								</Link>
 							</div>
 						</div>
 					))}

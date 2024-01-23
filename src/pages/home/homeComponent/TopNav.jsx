@@ -97,6 +97,7 @@ const TopNav = () => {
 			description,
 			uploaderImage: user?.image,
 			uploaderName: user?.name,
+			uploaderUserName: user.userName,
 		};
 
 		try {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	const go_home = localStorage.getItem("go-home-ISTJ");

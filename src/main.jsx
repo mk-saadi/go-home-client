@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import PrivateRoute from "./utils/PrivateRoute";
 import Providers from "./utils/Providers";
+import EditApartment from "./pages/apartment/EditApartment";
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 			{
 				path: "/:id",
 				element: <ApartmentDetail />,
+			},
+			{
+				path: "/edit/:id",
+				element: <EditApartment />,
 			},
 		],
 	},
