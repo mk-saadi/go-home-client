@@ -138,3 +138,8 @@ body {
 		font-size: small;
 	}
 }
+
+.activeLinks a.active {
+	color: #c59e00;
+	border-bottom: 0.5px dashed #c59e00;
+}

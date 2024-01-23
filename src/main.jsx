@@ -10,6 +10,9 @@ import Register from "./pages/auth/Register";
 import PrivateRoute from "./utils/PrivateRoute";
 import Providers from "./utils/Providers";
 import EditApartment from "./pages/apartment/EditApartment";
+import AllApartment from "./pages/apartment/AllApartment";
+import BookedApartments from "./pages/apartment/BookedApartments";
+import Exp from "./pages/apartment/Exp";
 
 const router = createBrowserRouter([
 	{
@@ -31,6 +34,18 @@ const router = createBrowserRouter([
 			{
 				path: "/edit/:id",
 				element: <EditApartment />,
+			},
+			{
+				path: "/allApartment",
+				element: <AllApartment />,
+			},
+			{
+				path: "/bookedApartments",
+				element: <BookedApartments />,
+			},
+			{
+				path: "/exp",
+				element: <Exp />,
 			},
 		],
 	},

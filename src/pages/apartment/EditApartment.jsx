@@ -1,16 +1,12 @@
 import axios from "axios";
-import { useEffect, useState, Fragment, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BookMarked } from "lucide-react";
-import { DataContent } from "../../utils/Providers";
-import { Dialog, Transition } from "@headlessui/react";
-import { MoveLeft, PlusSquare } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 import useToast from "../../utils/useToast";
 import Toast from "../../utils/Toast";
 
 const EditApartment = () => {
 	const { id } = useParams();
-	const { user } = useContext(DataContent);
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
 	const [house, setHouse] = useState([]);
 
@@ -62,8 +58,16 @@ const EditApartment = () => {
 
 		try {
 			const res = await axios.put(`http://localhost:15000/houses/${id}`, roomData);
-			if (res.data) {
+			console.log("res: ", res);
+			if (res.data.modifiedCount > 0) {
 				showToast("success", "Successfully updated apartment!");
+
+				setTimeout(() => {
+					showToast("loading", "Redirecting");
+					setTimeout(() => {
+						navigate("/");
+					}, 500);
+				}, 1000);
 			}
 		} catch (error) {
 			showToast("error", "Couldn't update. Please try again!");

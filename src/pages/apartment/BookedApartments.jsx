@@ -1,42 +1,16 @@
-import { Eraser, Loader, MoveLeft, Pencil } from "lucide-react";
-import { useState, Fragment, useEffect, useContext } from "react";
-import { Fade } from "react-awesome-reveal";
+import { useContext, useState, Fragment } from "react";
+import { DataContent } from "../../utils/Providers";
 import { Link } from "react-router-dom";
-import { Dialog, Transition } from "@headlessui/react";
+import { Fade } from "react-awesome-reveal";
+import { Eraser, Loader, MoveLeft } from "lucide-react";
 import axios from "axios";
-import useToast from "../../../utils/useToast";
-import Toast from "../../../utils/Toast";
-import { DataContent } from "../../../utils/Providers";
+import useToast from "../../utils/useToast";
+import Toast from "../../utils/Toast";
+import { Dialog, Transition } from "@headlessui/react";
 
-/* eslint-disable react/prop-types */
-const HouseList = () => {
+const BookedApartments = () => {
+	const { loading, booked } = useContext(DataContent);
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
-	const [houses, setHouses] = useState([]);
-	const { user } = useContext(DataContent);
-	const [loading, setLoading] = useState(true);
-
-	const userName = user?.userName;
-
-	useEffect(() => {
-		setLoading(true);
-		const fetchData = async () => {
-			try {
-				const res = await axios.get("http://localhost:15000/houses");
-				if (res.status === 200) {
-					setLoading(false);
-					const data = res.data;
-					const filterHouse = data.filter((po) => po.uploaderUserName === userName);
-
-					setHouses(filterHouse);
-				}
-			} catch (error) {
-				console.log(error.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-		fetchData();
-	}, [userName]);
 
 	const [userIdToDelete, setUserIdToDelete] = useState(null);
 	let [isOpen, setIsOpen] = useState(false);
@@ -52,12 +26,12 @@ const HouseList = () => {
 		showToast("loading", "Please wait!");
 
 		try {
-			const res = await axios.delete(`http://localhost:15000/houses/${id}`);
+			const res = await axios.delete(`http://localhost:15000/booked/${id}`);
 			if (res.data.deletedCount > 0) {
 				setIsOpen(false);
 				showToast("success", "successfully deleted apartment!");
 
-				setHouses((past) => past.filter((ha) => ha._id !== id));
+				// setHouses((past) => past.filter((ha) => ha._id !== id));
 			}
 		} catch (error) {
 			setIsOpen(false);
@@ -89,7 +63,7 @@ const HouseList = () => {
 						triggerOnce
 						damping={0.1}
 					>
-						{houses.map((ha) => (
+						{booked.map((ha) => (
 							<div
 								key={ha._id}
 								className="flex justify-start gap-x-2.5 my-1.5 px-2 py-2.5 border-y border-amber-900/15 bg-white  duration-200 hover:bg-amber-50 group"
@@ -128,14 +102,6 @@ const HouseList = () => {
 										<Eraser />
 										Delete?
 									</button>
-									<Link
-										className="flex items-center justify-start submitButton gap-x-2"
-										to={`/edit/${ha._id}`}
-									>
-										{" "}
-										<Pencil />
-										Edit?
-									</Link>
 								</div>
 							</div>
 						))}
@@ -220,4 +186,4 @@ const HouseList = () => {
 	);
 };
 
-export default HouseList;
+export default BookedApartments;

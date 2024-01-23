@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -10,9 +10,10 @@ const Navbar = () => {
 		window.location.reload(true);
 		navigate("/");
 	};
+
 	return (
 		<div className="flex flex-row">
-			<div>
+			<div className="hidden md:block">
 				<Link to="/">
 					<button>GoHome</button>
 				</Link>
@@ -20,10 +21,10 @@ const Navbar = () => {
 
 			<div className="flex-grow">
 				<div className="flex items-center justify-center">
-					<ul className="flex space-x-2">
-						<li>nav links 0</li>
-						<li>nav links 1</li>
-						<li>nav links 2 </li>
+					<ul className="flex space-x-4 font-medium text-gray-700 activeLinks">
+						<NavLink to="/">Profile</NavLink>
+						<NavLink to="/allApartment">Apartments</NavLink>
+						<NavLink to="/bookedApartments">Booked</NavLink>
 					</ul>
 				</div>
 			</div>
