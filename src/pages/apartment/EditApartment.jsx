@@ -14,6 +14,8 @@ const EditApartment = () => {
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
 	const [house, setHouse] = useState([]);
 
+	const images = house.imageUrls;
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -56,17 +58,15 @@ const EditApartment = () => {
 			rent,
 			phone,
 			description,
-			uploaderImage: user?.image,
-			uploaderName: user?.name,
 		};
 
 		try {
-			const res = await axios.put("http://localhost:15000/houses", roomData);
+			const res = await axios.put(`http://localhost:15000/houses/${id}`, roomData);
 			if (res.data) {
-				showToast("success", "Successfully added apartment!");
+				showToast("success", "Successfully updated apartment!");
 			}
 		} catch (error) {
-			showToast("error", "Couldn't add to the database. Please try again!");
+			showToast("error", "Couldn't update. Please try again!");
 		}
 	};
 
@@ -86,9 +86,12 @@ const EditApartment = () => {
 				/>
 			)}
 
-			<div>
+			<div className="mx-3 my-10 md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl">
+				<div className="mt-4 mb-6">
+					<p className="text-lg font-medium leading-6 text-gray-900">Update your apartment?</p>
+				</div>
 				<form
-					className="grid grid-cols-2 gap-x-4 gap-y-1.5 "
+					className="grid grid-cols-2 gap-x-4 gap-y-6 "
 					onSubmit={handleApartment}
 				>
 					{/* houseName */}
@@ -218,18 +221,18 @@ const EditApartment = () => {
 						>
 							Pictures
 						</label>
-						<div className="mt-1"></div>
 
-						<div className="flex w-full mt-4 space-x-3">
-							{/* {house.imageUrls.map((image, index) => (
-								<div key={index}>
-									<img
-										src={image}
-										alt={`Preview ${index + 1}`}
-										className="object-cover w-20 h-20 border rounded-none border-amber-900/70 -md"
-									/>
-								</div>
-							))} */}
+						<div className="flex w-full mt-1 space-x-3">
+							{images &&
+								images.map((image, index) => (
+									<div key={index}>
+										<img
+											src={image}
+											alt={`Preview ${index + 1}`}
+											className="object-cover w-24 h-24 border rounded-none border-amber-900/70 -md"
+										/>
+									</div>
+								))}
 						</div>
 					</div>
 
@@ -310,7 +313,7 @@ const EditApartment = () => {
 								defaultValue={house.description}
 								required
 								className="block w-full rounded-none border-0 py-1.5 text-gray-700 shadow-md ring-1 ring-inset ring-[#645104] placeholder:text-gray-400 sm:text-base sm:leading-6 focus:outline-none px-2 font-semibold"
-								rows={4}
+								rows={8}
 							></textarea>
 						</div>
 					</div>
