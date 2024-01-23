@@ -52,11 +52,17 @@ const Login = () => {
 				const userEmail = localStorage.getItem("email");
 
 				const matchingUser = response.data.find((user) => user.email === userEmail);
+				console.log("matchingUser: ", matchingUser);
 
 				if (matchingUser) {
 					localStorage.setItem("go-home-ISTJ", matchingUser._id);
 
-					navigate("/");
+					if (matchingUser.role === "Renter") {
+						navigate("/dashboard/bookedApartments");
+					}
+					if (matchingUser.role === "RentOut") {
+						navigate("/dashboard");
+					}
 				} else {
 					console.log("No matching user found.");
 				}
@@ -82,7 +88,7 @@ const Login = () => {
 						triggerOnce
 						className="text-[#f7cf31] text-3xl text-center font-semibold"
 					>
-						GoHome
+						HouseHunter
 					</Fade>
 					<Fade
 						triggerOnce

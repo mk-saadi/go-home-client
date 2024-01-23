@@ -5,12 +5,16 @@ import useToast from "../../utils/useToast";
 import axios from "axios";
 import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { Listbox, RadioGroup, Transition, Combobox } from "@headlessui/react";
+
+const role = [{ name: "Renter" }, { name: "RentOut" }];
 
 const Register = () => {
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
 	const navigate = useNavigate();
 	const imgbbApiKey = "5617d55658537c83fee4ef9a7cffb921";
 	const [passwordShow, setPasswordShow] = useState(false);
+	const [selected, setSelected] = useState(role[0]);
 
 	const handlePasswordShow = () => {
 		setPasswordShow(!passwordShow);
@@ -41,6 +45,7 @@ const Register = () => {
 		const image = form.image.files[0];
 		const email = form.email.value;
 		const password = form.password.value;
+		const role = selected.name;
 
 		const userName = generateRandomUsername(name);
 		if (userName === null) {
@@ -69,8 +74,10 @@ const Register = () => {
 						image: imageUrl,
 						email,
 						password,
+						role,
 					};
 
+					console.log("formData: ", formData);
 					axios
 						.post("http://localhost:15000/users", formData)
 						.then((response) => {
@@ -134,7 +141,7 @@ const Register = () => {
 						triggerOnce
 						className="text-[#f7cf31] text-3xl text-center font-semibold"
 					>
-						GoHome
+						HouseHunter
 					</Fade>
 					<Fade
 						triggerOnce
@@ -187,6 +194,66 @@ const Register = () => {
 									required
 									className="block w-full rounded-none border-0 py-1.5 text-gray-700 shadow-md ring-1 ring-inset ring-[#645104] placeholder:text-gray-400 sm:text-base sm:leading-6 focus:outline-none px-2 font-semibold"
 								/>
+							</div>
+						</div>
+
+						{/* role*/}
+						<div className="w-full">
+							<label
+								htmlFor="CityCat"
+								className="block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Select your objective.
+							</label>
+							<div className="w-full max-w-md mx-auto mt-2">
+								<RadioGroup
+									value={selected}
+									onChange={setSelected}
+								>
+									<RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
+									<div className="flex justify-start w-full space-x-2">
+										{role.map((plan) => (
+											<RadioGroup.Option
+												key={plan.name}
+												value={plan}
+												className={({ active, checked }) =>
+													`${
+														active
+															? "//you can use /ring/ for the selected//"
+															: ""
+													}
+                                                            ${
+																checked
+																	? "bg-gradient-to-b from-[#f7cf31] to-[#c59e00] text-white"
+																	: "bg-white"
+															}
+                                                                relative flex cursor-pointer rounded-none px-5 py-1 shadow-md focus:outline-none  ring-1 ring-[#645104]`
+												}
+											>
+												{({ checked }) => (
+													<>
+														<div className="flex items-center justify-between w-full">
+															<div className="flex items-center">
+																<div className="text-sm">
+																	<RadioGroup.Label
+																		as="p"
+																		className={`font-medium  ${
+																			checked
+																				? "text-[#645104] font-semibold"
+																				: "text-gray-700 font-semibold"
+																		}`}
+																	>
+																		{plan.name}
+																	</RadioGroup.Label>
+																</div>
+															</div>
+														</div>
+													</>
+												)}
+											</RadioGroup.Option>
+										))}
+									</div>
+								</RadioGroup>
 							</div>
 						</div>
 

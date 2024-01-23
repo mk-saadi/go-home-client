@@ -50,6 +50,11 @@ const BookedApartments = () => {
 			)}
 
 			<div className="py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+				<div>
+					<p className="text-base font-medium text-gray-700">
+						Number of currently booked apartment: 0{booked.length}{" "}
+					</p>
+				</div>
 				{loading ? (
 					<div className="h-[80vh]">
 						<div className="flex flex-col items-center justify-center overflow-y-hidden text-[#a16c46]">
@@ -69,7 +74,7 @@ const BookedApartments = () => {
 								className="flex justify-start gap-x-2.5 my-1.5 px-2 py-2.5 border-y border-amber-900/15 bg-white  duration-200 hover:bg-amber-50 group"
 							>
 								<Link
-									to={`/${ha._id}`}
+									to={`/dashboard/${ha._id}`}
 									className="overflow-hidden"
 								>
 									<img
@@ -81,7 +86,7 @@ const BookedApartments = () => {
 
 								<div className="flex flex-col flex-grow">
 									<Link
-										to={`/${ha._id}`}
+										to={`/dashboard/${ha._id}`}
 										className="text-base font-semibold text-gray-700 hover:underline"
 									>
 										{ha.houseName}
@@ -148,13 +153,16 @@ const BookedApartments = () => {
 										as="h3"
 										className="text-lg font-medium leading-6 text-gray-900"
 									>
-										Delete this apartment?
+										Delete this booking?
 									</Dialog.Title>
 
 									{/* modal body below */}
 									<div className="mt-2">
 										<div>
-											<p>Are you sure you want to delete this apartment?</p>
+											<p>
+												Are you sure you want to delete this apartment from your
+												bookings?
+											</p>
 										</div>
 
 										<div className="flex justify-between w-full mt-4 col-span-full gap-x-12">

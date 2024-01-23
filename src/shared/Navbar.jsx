@@ -1,7 +1,11 @@
+import { LogOut } from "lucide-react";
+import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { DataContent } from "../utils/Providers";
 
 const Navbar = () => {
 	const navigate = useNavigate();
+	const { user } = useContext(DataContent);
 
 	const handleLogout = (event) => {
 		event.preventDefault();
@@ -18,13 +22,19 @@ const Navbar = () => {
 					<button>GoHome</button>
 				</Link>
 			</div>
-
 			<div className="flex-grow">
 				<div className="flex items-center justify-center">
-					<ul className="flex space-x-4 font-medium text-gray-700 activeLinks">
+					{/* <ul className="flex space-x-4 font-medium text-gray-700 activeLinks">
 						<NavLink to="/">Profile</NavLink>
 						<NavLink to="/allApartment">Apartments</NavLink>
 						<NavLink to="/bookedApartments">Booked</NavLink>
+					</ul> */}
+					<ul className="flex space-x-4 font-medium text-gray-700 activeLinks">
+						{user?.role !== "Renter" && <NavLink to="/dashboard">Profile</NavLink>}
+						<NavLink to="/dashboard/allApartment">Apartments</NavLink>
+						{user?.role !== "RentOut" && (
+							<NavLink to="/dashboard/bookedApartments">Booked</NavLink>
+						)}
 					</ul>
 				</div>
 			</div>
@@ -32,8 +42,9 @@ const Navbar = () => {
 			<div>
 				<button
 					onClick={handleLogout}
-					className="logOutButton"
+					className="flex items-center justify-start logOutButton gap-x-2"
 				>
+					<LogOut />
 					logout
 				</button>
 			</div>

@@ -76,6 +76,12 @@ const HouseList = () => {
 			)}
 
 			<div className="py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+				<div>
+					<p className="text-base font-medium text-gray-700">
+						Number of apartment listed for rent: 0{houses.length}{" "}
+					</p>
+				</div>
+
 				{loading ? (
 					<div className="h-[80vh]">
 						<div className="flex flex-col items-center justify-center overflow-y-hidden text-[#a16c46]">
@@ -95,7 +101,7 @@ const HouseList = () => {
 								className="flex justify-start gap-x-2.5 my-1.5 px-2 py-2.5 border-y border-amber-900/15 bg-white  duration-200 hover:bg-amber-50 group"
 							>
 								<Link
-									to={`/${ha._id}`}
+									to={`/dashboard/${ha._id}`}
 									className="overflow-hidden"
 								>
 									<img
@@ -107,7 +113,7 @@ const HouseList = () => {
 
 								<div className="flex flex-col flex-grow">
 									<Link
-										to={`/${ha._id}`}
+										to={`/dashboard/${ha._id}`}
 										className="text-base font-semibold text-gray-700 hover:underline"
 									>
 										{ha.houseName}

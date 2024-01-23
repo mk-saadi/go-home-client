@@ -16,7 +16,7 @@ import Exp from "./pages/apartment/Exp";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
+		path: "/dashboard",
 		element: (
 			<PrivateRoute>
 				<Main />
@@ -24,33 +24,33 @@ const router = createBrowserRouter([
 		),
 		children: [
 			{
-				path: "/",
+				path: "/dashboard",
 				element: <Home />,
 			},
 			{
-				path: "/:id",
+				path: "/dashboard/:id",
 				element: <ApartmentDetail />,
 			},
 			{
-				path: "/edit/:id",
+				path: "/dashboard/edit/:id",
 				element: <EditApartment />,
 			},
 			{
-				path: "/allApartment",
+				path: "/dashboard/allApartment",
 				element: <AllApartment />,
 			},
 			{
-				path: "/bookedApartments",
+				path: "/dashboard/bookedApartments",
 				element: <BookedApartments />,
 			},
 			{
-				path: "/exp",
+				path: "/dashboard/exp",
 				element: <Exp />,
 			},
 		],
 	},
 	{
-		path: "/login",
+		path: "/",
 		element: <Login />,
 	},
 	{

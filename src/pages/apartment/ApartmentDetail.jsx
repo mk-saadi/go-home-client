@@ -116,16 +116,18 @@ const ApartmentDetail = () => {
 							</p>
 						</div>
 
-						<div className="w-fit">
-							<button
-								className="flex items-center justify-start submitButton gap-x-2"
-								onClick={openModal}
-							>
-								{" "}
-								<BookMarked />
-								Book now
-							</button>
-						</div>
+						{user.role !== "RentOut" && (
+							<div className="w-fit">
+								<button
+									className="flex items-center justify-start submitButton gap-x-2"
+									onClick={openModal}
+								>
+									{" "}
+									<BookMarked />
+									Book now
+								</button>
+							</div>
+						)}
 					</div>
 
 					<Typography content={room.description} />

@@ -142,7 +142,7 @@ const AllApartment = () => {
 											<div className="flex-auto min-w-0">
 												<div className="flex items-center justify-start gap-3">
 													<Link
-														to={`/${us._id}`}
+														to={`/dashboard/${us._id}`}
 														className="overflow-hidden"
 													>
 														<img
@@ -152,14 +152,14 @@ const AllApartment = () => {
 														/>
 													</Link>
 													<div>
-														<Link to={`/${us._id}`}>
+														<Link to={`/dashboard/${us._id}`}>
 															<p className="text-base font-semibold text-gray-700 hover:underline">
 																{us.houseName}
 															</p>
 														</Link>
 
 														<div className="flex mt-1 text-xs gap-x-1.5 font-medium leading-5 text-gray-500 truncate">
-															House Owner:{" "}
+															Apartment Owner:{" "}
 															<div className="flex items-center justify-start gap-x-1">
 																<img
 																	src={us.uploaderImage}

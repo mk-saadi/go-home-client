@@ -3,7 +3,7 @@ import HouseList from "./homeComponent/HouseList";
 
 const Home = () => {
 	return (
-		<div className="h-[200vh]">
+		<div className="bg-white">
 			<TopNav />
 
 			<HouseList />
