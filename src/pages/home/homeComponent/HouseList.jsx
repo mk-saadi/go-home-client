@@ -75,7 +75,7 @@ const HouseList = () => {
 				/>
 			)}
 
-			<div className="py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+			<div className="py-2 mx-3 md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl">
 				<div>
 					<p className="text-base font-medium text-gray-700">
 						Number of apartment listed for rent: 0{houses.length}{" "}
@@ -114,7 +114,7 @@ const HouseList = () => {
 								<div className="flex flex-col flex-grow">
 									<Link
 										to={`/dashboard/${ha._id}`}
-										className="text-base font-semibold text-gray-700 hover:underline"
+										className="text-base font-semibold text-gray-700 group-hover:underline"
 									>
 										{ha.houseName}
 									</Link>

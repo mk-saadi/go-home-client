@@ -6,6 +6,10 @@ body {
 	font-family: "Quicksand", sans-serif;
 }
 
+.markdown > * {
+	all: revert;
+}
+
 /* button css */
 .submitButton {
 	width: 100%;

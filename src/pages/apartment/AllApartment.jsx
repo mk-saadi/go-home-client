@@ -7,7 +7,6 @@ import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import useToast from "../../utils/useToast";
 import Toast from "../../utils/Toast";
-import app from "../../firebase/firebase.config";
 
 const AllApartment = () => {
 	const { houses, loading, user } = useContext(DataContent);
@@ -107,7 +106,7 @@ const AllApartment = () => {
 					</div>
 				</div>
 			) : (
-				<div className="py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+				<div className="py-2 mx-3 md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl">
 					<Fade
 						damping={0.3}
 						cascade
@@ -129,6 +128,7 @@ const AllApartment = () => {
 								onChange={handleSearchChange}
 							/>
 						</div>
+
 						{(searchQuery.length === 0 ? houses : filteredItems).length === 0 ? (
 							<div className="flex items-center justify-center h-full px-4 py-2 mx-auto border max-w-prose bg-gray-200/70 border-yellow-900/20">
 								<p className="text-lg font-semibold leading-6 text-gray-700">
@@ -157,7 +157,7 @@ const AllApartment = () => {
 													</Link>
 													<div>
 														<Link to={`/dashboard/${us._id}`}>
-															<p className="text-base font-semibold text-gray-700 hover:underline">
+															<p className="text-base font-semibold text-gray-700 group-hover:underline">
 																{us.houseName}
 															</p>
 														</Link>

@@ -6,7 +6,7 @@ const Typography = ({ content }) => {
 	return (
 		<div className="relative">
 			<ReactMarkdown
-				className="text-base font-medium prose text-gray-900 break-words whitespace-pre-line markdown md:text-base max-w-prose"
+				className="text-base font-medium prose text-gray-700 break-words whitespace-pre-line markdown md:text-base max-w-prose"
 				remarkPlugins={[remarkGfm]}
 			>
 				{content}

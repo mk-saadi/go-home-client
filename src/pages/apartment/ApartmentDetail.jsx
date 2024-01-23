@@ -111,13 +111,33 @@ const ApartmentDetail = () => {
 						))}
 				</div>
 				<div>
-					<div className="flex justify-between mb-8">
-						<div>
-							<p className="text-xl font-semibold text-gray-700">{room.houseName}</p>
-							<p className="text-sm font-medium text-gray-500">{room.city}</p>
-							<p className="text-sm font-medium text-gray-500">BDT: ৳{room.rent}</p>
-							<p className="text-sm font-medium text-gray-500">
-								Available from: {room.availability}
+					<div className="flex justify-between mt-4 mb-8">
+						<div className="text-gray-700">
+							<p className="text-xl font-semibold ">{room.houseName}</p>
+							<p className="text-sm font-medium ">
+								Address:{" "}
+								<span className="text-base font-semibold">
+									{" "}
+									{room.address}, {room.city}
+								</span>
+							</p>
+							<p className="text-sm font-medium ">
+								BDT: <span className="text-base font-semibold"> ৳{room.rent}</span>
+							</p>
+							<p className="text-sm font-medium ">Available from: {room.availability}</p>
+							<div className="flex mt-1 text-sm gap-x-1.5 font-medium leading-5  truncate justify-start items-center">
+								Apartment Owner:{" "}
+								<div className="flex items-center justify-start gap-x-1">
+									<img
+										src={room.uploaderImage}
+										className="object-cover w-8 h-8"
+										alt="house Owner"
+									/>
+									<p>{room.uploaderName}</p>
+								</div>
+							</div>
+							<p className="text-sm font-medium ">
+								Phone number: <span className="text-base font-semibold"> {room.phone}</span>
 							</p>
 						</div>
 

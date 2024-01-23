@@ -16,10 +16,10 @@ const Navbar = () => {
 	};
 
 	return (
-		<div className="flex flex-row">
+		<div className="flex flex-row mx-1.5 md:mx-6 bg-white border-b border-amber-900/30">
 			<div className="hidden md:block">
 				<Link to="/">
-					<button>GoHome</button>
+					<button className="font-semibold text-lg text-[#c59e00]">HouseHunter</button>
 				</Link>
 			</div>
 			<div className="flex-grow">

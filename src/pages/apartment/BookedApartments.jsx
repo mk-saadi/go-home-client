@@ -22,34 +22,23 @@ const BookedApartments = () => {
 		setIsOpen(true);
 	}
 
-	// const handleDelete = async (id) => {
-	// 	showToast("loading", "Please wait!");
-
-	// 	try {
-	// 		const res = await axios.delete(`http://localhost:15000/booked/${id}`);
-	// 		if (res.data.deletedCount > 0) {
-	// 			setIsOpen(false);
-	// 			showToast("success", "successfully deleted apartment!");
-	// 		}
-	// 	} catch (error) {
-	// 		console.log("error: ", error);
-	// 		showToast("error", "Couldn't delete apartment, please try again!");
-	// 	}
-	// };
-
 	const handleDelete = async (id) => {
-		console.log("Deleting apartment with id:", id);
 		showToast("loading", "Please wait!");
 
 		try {
 			const res = await axios.delete(`http://localhost:15000/booked/${id}`);
-			console.log("Delete response:", res.data); // Log the response to see if there are any clues
 			if (res.data.deletedCount > 0) {
 				setIsOpen(false);
-				showToast("success", "Successfully deleted apartment!");
+				showToast("success", "successfully deleted apartment!");
+
+				setTimeout(() => {
+					showToast("loading", "Loading!");
+					setTimeout(() => {
+						window.location.reload(true);
+					}, 500);
+				}, 1000);
 			}
 		} catch (error) {
-			console.log("Error deleting apartment:", error);
 			showToast("error", "Couldn't delete apartment, please try again!");
 		}
 	};
@@ -64,7 +53,7 @@ const BookedApartments = () => {
 				/>
 			)}
 
-			<div className="py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+			<div className="py-2 mx-3 md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl ">
 				<div>
 					<p className="text-base font-medium text-gray-700">
 						Number of currently booked apartment: 0{booked.length}{" "}
@@ -102,7 +91,7 @@ const BookedApartments = () => {
 								<div className="flex flex-col flex-grow">
 									<Link
 										to={`/dashboard/${ha._id}`}
-										className="text-base font-semibold text-gray-700 hover:underline"
+										className="text-base font-semibold text-gray-700 group-hover:underline"
 									>
 										{ha.houseName}
 									</Link>
