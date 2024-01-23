@@ -99,17 +99,25 @@ const TopNav = () => {
 			uploaderName: user?.name,
 		};
 
-		axios
-			.post("http://localhost:15000/houses", roomData)
-			.then((res) => {
-				if (res.data) {
-					showToast("success", "Successfully added apartment!");
-				}
-			})
-			.catch((err) => {
-				console.log(err.message);
-				showToast("error", "Couldn't add to the database. Please try again!");
-			});
+		try {
+			const res = await axios.post("http://localhost:15000/houses", roomData);
+			if (res.data) {
+				showToast("success", "Successfully added apartment!");
+				setIsOpen(false);
+			}
+		} catch (error) {
+			showToast("error", "Couldn't add to the database. Please try again!");
+		}
+
+		// axios
+		// 	.post("http://localhost:15000/houses", roomData)
+		// 	.then((res) => {
+		// 		if (res.data) {
+		// 		}
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err.message);
+		// 	});
 	};
 
 	// >> image preview function
@@ -142,8 +150,8 @@ const TopNav = () => {
 				/>
 			)}
 
-			<div className="fixed w-full bottom-2">
-				<div className="flex items-center justify-between pt-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
+			<div className="fixed bottom-0 w-full bg-white">
+				<div className="flex items-center justify-between py-2 mx-3 border-t md:px-8 md:mx-auto xl:max-w-6xl lg:max-w-5xl md:max-w-4xl border-amber-900/30">
 					<div className="flex flex-row gap-x-2">
 						<div>
 							<img
@@ -320,7 +328,10 @@ const TopNav = () => {
 													htmlFor="roomSize"
 													className="block text-sm font-medium leading-6 text-gray-900"
 												>
-													Room size (square feet)
+													Room size{" "}
+													<span className="text-xs text-gray-500">
+														( square feet )
+													</span>
 												</label>
 												<div className="mt-1">
 													<input
@@ -334,12 +345,15 @@ const TopNav = () => {
 											</div>
 
 											{/* picture */}
-											<div>
+											<div className="col-span-full">
 												<label
 													htmlFor="picture"
 													className="block text-sm font-medium leading-6 text-gray-900"
 												>
-													Pictures <span>( you can select multiple pictures )</span>
+													Pictures{" "}
+													<span className="text-xs text-gray-500">
+														( you can select multiple pictures )
+													</span>
 												</label>
 												<div className="mt-1">
 													<input
@@ -392,7 +406,8 @@ const TopNav = () => {
 													htmlFor="rent"
 													className="block text-sm font-medium leading-6 text-gray-900"
 												>
-													Rent ( BDT )
+													Rent{" "}
+													<span className="text-xs text-gray-500">( BDT )</span>
 												</label>
 												<div className="mt-1">
 													<input
@@ -419,9 +434,9 @@ const TopNav = () => {
 														type="tel"
 														pattern="^\+880[1-9][0-9]{9}$"
 														title="Please enter a valid Bangladeshi phone number starting with +880"
-														name="phone"
 														value={userInput}
 														onChange={handleInputChange}
+														name="phone"
 														className="block w-full rounded-none border-0 py-1.5 text-gray-700 shadow-md ring-1 ring-inset ring-[#645104] placeholder:text-gray-400 sm:text-base sm:leading-6 focus:outline-none px-2 font-semibold"
 														required
 													/>
@@ -434,7 +449,10 @@ const TopNav = () => {
 													htmlFor="description"
 													className="block text-sm font-medium leading-6 text-gray-900"
 												>
-													Description ( you can use markdown language )
+													Description{" "}
+													<span className="text-xs text-gray-500">
+														( you can use markdown language )
+													</span>
 												</label>
 												<div className="mt-1">
 													<textarea
