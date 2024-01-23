@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from "react";
 
 export const DataContent = createContext();
 
-// eslint-disable-next-line react/prop-types
 const Providers = ({ children }) => {
 	const [users, setUsers] = useState([]);
 	const [user, setUser] = useState([]);

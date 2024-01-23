@@ -10,7 +10,7 @@ import imageCompression from "browser-image-compression";
 const TopNav = () => {
 	const { toastType, toastMessage, showToast, hideToast } = useToast();
 
-	const { houses, user } = useContext(DataContent);
+	const { user } = useContext(DataContent);
 
 	const [userInput, setUserInput] = useState("+880");
 
@@ -52,61 +52,83 @@ const TopNav = () => {
 
 	const handleApartment = async (event) => {
 		event.preventDefault();
+		showToast("loading", "Please wait!");
 
 		const form = event.target;
 		const houseName = form.houseName.value;
 		const address = form.address.value;
 		const city = form.city.value;
-		const bedrooms = form.bedrooms.value;
-		const bathrooms = form.bathrooms.value;
-		const roomSize = form.roomSize.value;
-		const picture = form.picture.files[0];
+		const bedrooms = parseFloat(form.bedrooms.value);
+		const bathrooms = parseFloat(form.bathrooms.value);
+		const roomSize = parseFloat(form.roomSize.value);
+
+		const productImages = form.picture.files;
+		const first5Images = Array.from(productImages).slice(0, 5);
+
 		const availability = form.availability.value;
-		const rent = form.rent.value;
+		const rent = parseFloat(form.rent.value);
 		const phone = form.phone.value;
 		const description = form.description.value;
 
 		const options = {
 			maxSizeMB: 0.1,
-			maxWidthOrHeight: 1280,
+			maxWidthOrHeight: 1440,
 			useWebWorker: true,
 		};
 
-		const compressedImage = await imageCompression(picture, options);
-		const imageUrl = await uploadToImgbb(compressedImage);
+		let secondaryPhotoUrls = [];
+		for (let photo of first5Images) {
+			const compressedPhoto = await imageCompression(photo, options);
+			const photoUrl = await uploadToImgbb(compressedPhoto);
+			secondaryPhotoUrls.push(photoUrl);
+		}
 
 		const roomData = {
 			houseName,
 			address,
 			city,
-			imageUrl,
+			imageUrls: secondaryPhotoUrls,
 			bedrooms,
 			bathrooms,
 			roomSize,
-			picture,
 			availability,
 			rent,
 			phone,
 			description,
-			uploaderImage: user.image,
-			uploaderName: user.name,
+			uploaderImage: user?.image,
+			uploaderName: user?.name,
 		};
 
-		try {
-			const res = await axios.post("http://localhost:15000/houses", roomData);
-			if (res.data.success) {
-				showToast("success", "Successfully added apartment!");
+		axios
+			.post("http://localhost:15000/houses", roomData)
+			.then((res) => {
+				if (res.data) {
+					showToast("success", "Successfully added apartment!");
+				}
+			})
+			.catch((err) => {
+				console.log(err.message);
+				showToast("error", "Couldn't add to the database. Please try again!");
+			});
+	};
 
-				setTimeout(() => {
-					showToast("loading", "Closing Modal!");
-					setTimeout(() => {
-						setIsOpen(false);
-					}, 500);
-				}, 1000);
-			}
-		} catch (error) {
-			showToast("error", "Couldn't add! Please try again.");
-			console.log(error);
+	// >> image preview function
+	const [selectedImages, setSelectedImages] = useState([]);
+	const handleImageChange = (e) => {
+		const files = e.target.files;
+		const previewImages = [];
+		if (files.length > 5) {
+			showToast("error", "You can only upload up to 5 images!");
+		}
+		for (let i = 0; i < Math.min(files.length, 5); i++) {
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				previewImages.push(event.target.result);
+				if (previewImages.length === Math.min(files.length, 5)) {
+					setSelectedImages(previewImages);
+				}
+			};
+			reader.readAsDataURL(files[i]);
 		}
 	};
 
@@ -317,7 +339,7 @@ const TopNav = () => {
 													htmlFor="picture"
 													className="block text-sm font-medium leading-6 text-gray-900"
 												>
-													Pictures
+													Pictures <span>( you can select multiple pictures )</span>
 												</label>
 												<div className="mt-1">
 													<input
@@ -325,8 +347,23 @@ const TopNav = () => {
 														type="file"
 														name="picture"
 														required
+														multiple
+														accept="image/*"
 														className="block w-full rounded-none border-0 py-1.5 text-gray-700 shadow-md ring-1 ring-inset ring-[#645104] placeholder:text-gray-400 sm:text-base sm:leading-6 focus:outline-none px-2 font-semibold"
+														onChange={handleImageChange}
 													/>
+												</div>
+
+												<div className="flex w-full mt-4 space-x-3">
+													{selectedImages.map((image, index) => (
+														<div key={index}>
+															<img
+																src={image}
+																alt={`Preview ${index + 1}`}
+																className="object-cover w-20 h-20 border rounded-none border-amber-900/70 -md"
+															/>
+														</div>
+													))}
 												</div>
 											</div>
 

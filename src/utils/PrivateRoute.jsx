@@ -20,7 +20,6 @@ const PrivateRoute = ({ children }) => {
 	}
 
 	if (!go_home) {
-		// Redirect the user to the login page if their social_id address does not exist
 		return (
 			<Navigate
 				state={{ from: location }}
@@ -30,7 +29,6 @@ const PrivateRoute = ({ children }) => {
 		);
 	}
 
-	// Return the children component if the user is logged in
 	return children;
 };
 
