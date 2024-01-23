@@ -21,7 +21,7 @@ const HouseList = () => {
 		setLoading(true);
 		const fetchData = async () => {
 			try {
-				const res = await axios.get("http://localhost:15000/houses");
+				const res = await axios.get("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses");
 				if (res.status === 200) {
 					setLoading(false);
 					const data = res.data;
@@ -52,7 +52,9 @@ const HouseList = () => {
 		showToast("loading", "Please wait!");
 
 		try {
-			const res = await axios.delete(`http://localhost:15000/houses/${id}`);
+			const res = await axios.delete(
+				`https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses/${id}`
+			);
 			if (res.data.deletedCount > 0) {
 				setIsOpen(false);
 				showToast("success", "successfully deleted apartment!");

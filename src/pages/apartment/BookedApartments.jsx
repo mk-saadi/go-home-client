@@ -26,7 +26,9 @@ const BookedApartments = () => {
 		showToast("loading", "Please wait!");
 
 		try {
-			const res = await axios.delete(`http://localhost:15000/booked/${id}`);
+			const res = await axios.delete(
+				`https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/booked/${id}`
+			);
 			if (res.data.deletedCount > 0) {
 				setIsOpen(false);
 				showToast("success", "successfully deleted apartment!");

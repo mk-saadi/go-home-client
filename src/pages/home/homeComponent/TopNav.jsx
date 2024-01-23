@@ -101,7 +101,10 @@ const TopNav = () => {
 		};
 
 		try {
-			const res = await axios.post("http://localhost:15000/houses", roomData);
+			const res = await axios.post(
+				"https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses",
+				roomData
+			);
 			if (res.data) {
 				showToast("success", "Successfully added apartment!");
 				setIsOpen(false);
@@ -111,7 +114,7 @@ const TopNav = () => {
 		}
 
 		// axios
-		// 	.post("http://localhost:15000/houses", roomData)
+		// 	.post("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses", roomData)
 		// 	.then((res) => {
 		// 		if (res.data) {
 		// 		}

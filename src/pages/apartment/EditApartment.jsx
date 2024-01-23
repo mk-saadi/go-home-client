@@ -15,7 +15,9 @@ const EditApartment = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(`http://localhost:15000/houses/${id}`);
+				const res = await axios.get(
+					`https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses/${id}`
+				);
 				if (res) {
 					setHouse(res.data);
 				}
@@ -57,7 +59,10 @@ const EditApartment = () => {
 		};
 
 		try {
-			const res = await axios.put(`http://localhost:15000/houses/${id}`, roomData);
+			const res = await axios.put(
+				`https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses/${id}`,
+				roomData
+			);
 			console.log("res: ", res);
 			if (res.data.modifiedCount > 0) {
 				showToast("success", "Successfully updated apartment!");

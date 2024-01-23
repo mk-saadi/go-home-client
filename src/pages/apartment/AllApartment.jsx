@@ -61,7 +61,10 @@ const AllApartment = () => {
 		};
 
 		try {
-			const res = await axios.post("http://localhost:15000/booked", bookedRoom);
+			const res = await axios.post(
+				"https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/booked",
+				bookedRoom
+			);
 			if (res.data) {
 				showToast("success", "Successfully booked apartment!");
 				setIsOpen(false);

@@ -16,7 +16,7 @@ const Providers = ({ children }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get("http://localhost:15000/users");
+				const res = await axios.get("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/users");
 				if (res.status === 200) {
 					const data = res.data;
 					const sameUser = data.find((us) => us._id === userId);
@@ -34,7 +34,7 @@ const Providers = ({ children }) => {
 		setLoading(true);
 		const fetchData = async () => {
 			try {
-				const res = await axios.get("http://localhost:15000/houses");
+				const res = await axios.get("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses");
 				if (res.status === 200) {
 					setLoading(false);
 					const data = res.data;
@@ -51,7 +51,7 @@ const Providers = ({ children }) => {
 		setLoading(true);
 		const fetchData = async () => {
 			try {
-				const res = await axios.get("http://localhost:15000/booked");
+				const res = await axios.get("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/booked");
 				if (res.status === 200) {
 					setLoading(false);
 					const data = res.data;

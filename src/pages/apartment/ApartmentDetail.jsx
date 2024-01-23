@@ -32,7 +32,9 @@ const ApartmentDetail = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(`http://localhost:15000/houses/${id}`);
+				const res = await axios.get(
+					`https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/houses/${id}`
+				);
 				if (res.status === 200) {
 					setRoom(res.data);
 				}
@@ -61,7 +63,10 @@ const ApartmentDetail = () => {
 		};
 
 		try {
-			const res = await axios.post("http://localhost:15000/booked", bookedRoom);
+			const res = await axios.post(
+				"https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/booked",
+				bookedRoom
+			);
 			if (res.data) {
 				showToast("success", "Successfully booked apartment!");
 				setIsOpen(false);
@@ -136,6 +141,7 @@ const ApartmentDetail = () => {
 									<p>{room.uploaderName}</p>
 								</div>
 							</div>
+
 							<p className="text-sm font-medium ">
 								Phone number: <span className="text-base font-semibold"> {room.phone}</span>
 							</p>

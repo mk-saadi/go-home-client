@@ -82,7 +82,7 @@ const Register = () => {
 
 					console.log("formData: ", formData);
 					axios
-						.post("http://localhost:15000/users", formData)
+						.post("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/users", formData)
 						.then((response) => {
 							const responseData = JSON.parse(response.config.data);
 							const userEmail = responseData.email;
@@ -108,7 +108,7 @@ const Register = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:15000/users")
+			.get("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/users")
 			.then((response) => {
 				const userEmail = localStorage.getItem("email");
 

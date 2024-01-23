@@ -29,7 +29,7 @@ const Login = () => {
 
 		showToast("loading", "Loading... please wait!");
 		axios
-			.post("http://localhost:15000/users/login", formData)
+			.post("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/users/login", formData)
 			.then((response) => {
 				const responseData = JSON.parse(response.config.data);
 				const userEmail = responseData.email;
@@ -47,7 +47,7 @@ const Login = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:15000/users")
+			.get("https://go-home-server-ocj6eub4l-mk-saadi.vercel.app/users")
 			.then((response) => {
 				const userEmail = localStorage.getItem("email");
 
